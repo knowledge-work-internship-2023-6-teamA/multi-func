@@ -58,6 +58,7 @@ func TestMultiFuncConcurrent2(t *testing.T) {
 		fmt.Println("start")
 		time.Sleep(1 * time.Second)
 		panic("ぱにっく")
+		// runtime.Goexit()
 		atomic.AddUint32(&count, 1)
 		fmt.Println("end")
 	}, 10)
