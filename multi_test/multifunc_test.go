@@ -33,12 +33,15 @@ func TestMultiFuncConcurrent(t *testing.T) {
 	f := multi.MultiFunc(func() {
 		fmt.Println("hello world")
 		atomic.AddUint32(&count, 1)
+		time.Sleep(1 * time.Second)
 	}, 10)
 
 	for i := 0; i < 100; i++ {
 		wg.Add(1)
-		go f()
-		wg.Done()
+		go func() {
+			f()
+			wg.Done()
+		}()
 	}
 	wg.Wait()
 	if count != 10 {
